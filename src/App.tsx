@@ -54,7 +54,11 @@ const App = () => {
 
   return (
     <div className="App">
-      Done
+      {data?.map( item => (
+        <div key={item.id} className='grid-item'>
+          <Item item={item} handleAddToCart={handleAddToCart} />
+        </div>
+      ))}
       
     </div>
   );

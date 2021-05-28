@@ -1,5 +1,17 @@
 .App {
+    display: grid;
+    grid-template-columns: 20% 20% 20% 20% 20%;
+    grid-template-rows: max-content;
+    gap: 1px;
     text-align: center;
     align-items: center;
     align-content: center;
+}
+
+.grid-item {
+    display: block;
+    justify-content: center;
+    padding: 10px;
+    border: 1px solid black;
+    box-shadow: 10px 10px 8px 10px #888888;
 }
