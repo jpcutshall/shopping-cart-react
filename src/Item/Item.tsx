@@ -15,6 +15,7 @@ export const Item: React.FC<Props> = ({ item, handleAddToCart}) => {
     return (
         <div className="Item">
             <img src={item.image} alt={item.title} />
+            <hr />
             <div>
                 <h3>{item.title}</h3>
                 <p>{item.description}</p>

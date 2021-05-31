@@ -1,6 +1,41 @@
+.Item {
+    background-color: #FFEE93;
+    padding:20px;
+    border-radius: 6px;
+}
+
 img {
     display: block;
     margin-left: auto;
     margin-right: auto;
     width: 50%;
+}
+
+button {
+    padding: 13px;
+    background-color: #FFC09F;
+    box-shadow: -7px 7px 2px 1px #FCF5C7;
+    border-style: dashed double dashed double; 
+    border-color: #A0CED9;
+}
+button:hover {
+    filter: brightness(113%);
+    cursor: pointer;
+}
+
+hr {
+    border: none;
+    border-top: 3px double #333;
+    color: #333;
+    overflow: visible;
+    text-align: center;
+    height: 5px;
+
+}
+hr:after {
+    background: #fff;
+    content: '§';
+    padding: 0 4px;
+    position: relative;
+    top: -13px;
 }

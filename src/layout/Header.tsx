@@ -1,4 +1,4 @@
-
+import './Header.css'
 
 interface Props {
     
@@ -7,7 +7,7 @@ interface Props {
 export const Header: React.FC = (props: Props) => {
     return (
         <div className="header">
-            <ul>
+            <ul className="nav">
                 <li>
                     <button>Home</button>
                 </li>

@@ -1,6 +1,6 @@
 .App {
     display: block;
-    padding: 15px;
+    
     
 }
 
@@ -16,7 +16,6 @@
     flex-direction: column;
     max-width: 25%;
     justify-content: center;
-    padding: 10px;
     margin: 10px;
     border: 1px solid black;
     box-shadow: 10px 10px 8px 10px #888888;
