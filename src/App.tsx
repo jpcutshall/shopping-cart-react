@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useQuery } from 'react-query';
 
 import { Item } from './Item/Item'
+import { Header } from './layout/Header'
 
 import './App.css';
 import { Dimmer, Loader } from 'semantic-ui-react'
@@ -33,13 +34,16 @@ const App = () => {
 
   const handleAddToCart = (clickedItem: CartItemType) => null;
 
-  const handleRemoveFromCart = () => null;
+  const handleRemoveFromCart = (clickedItem: CartItemType) => null;
 
   if(isLoading) {
     return (
-      <Dimmer active>
-        <Loader size="massive">Loading</Loader>
-      </Dimmer>
+        <div>
+          <Header />
+          <Dimmer active>
+            <Loader size="massive">Loading</Loader>
+          </Dimmer>
+        </div>
     )
   }
 
@@ -53,12 +57,16 @@ const App = () => {
   
 
   return (
+    
     <div className="App">
-      {data?.map( item => (
-        <div key={item.id} className='grid-item'>
-          <Item item={item} handleAddToCart={handleAddToCart} />
-        </div>
-      ))}
+      <Header />
+      <div className="items-container">
+        {data?.map( item => (
+          <div key={item.id} className='grid-item'>
+            <Item item={item} handleAddToCart={handleAddToCart} />
+          </div>
+        ))}
+      </div>
       
     </div>
   );

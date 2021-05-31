@@ -1,0 +1,16 @@
+.header {
+   
+    width: 100%;
+    padding: 15px;
+    margin: 15px;
+
+}
+.header ul {
+    list-style: none;
+    text-align: center;
+    padding: 15px;
+}
+
+.header li {
+    display: inline-block;
+}

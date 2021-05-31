@@ -1,17 +1,24 @@
 .App {
-    display: grid;
-    grid-template-columns: 20% 20% 20% 20% 20%;
-    grid-template-rows: max-content;
-    gap: 1px;
-    text-align: center;
+    display: block;
+    padding: 15px;
+    
+}
+
+.items-container {
+    display: flex;
+    flex-flow: wrap;
+    flex-direction: row;
     align-items: center;
-    align-content: center;
+    justify-content: center;
 }
 
 .grid-item {
-    display: block;
+    flex-direction: column;
+    max-width: 25%;
     justify-content: center;
     padding: 10px;
+    margin: 10px;
     border: 1px solid black;
     box-shadow: 10px 10px 8px 10px #888888;
+    border-radius: 6px;
 }
