@@ -3,6 +3,7 @@ import { useQuery } from 'react-query';
 
 import { Item } from './Item/Item'
 import { Header } from './layout/Header'
+import { Cart } from './Cart/Cart'
 
 import './App.css';
 import { Dimmer, Loader, Sidebar, Segment } from 'semantic-ui-react'
@@ -39,9 +40,35 @@ const App = () => {
     items.reduce( (ack: number, item) => ack + item.amount, 0);
    
 
-  const handleAddToCart = (clickedItem: CartItemType) => null;
+  const handleAddToCart = (clickedItem: CartItemType) => {
+    setCartItems(prev => {
+      // is the item already in the cart? addto count
+      const isItemInCart = prev.find(item => item.id === clickedItem.id)
 
-  const handleRemoveFromCart = (clickedItem: CartItemType) => null;
+      if (isItemInCart) {
+        return prev.map(item => 
+          item.id === clickedItem.id
+            ? { ...item, amount: item.amount + 1}
+            : item
+        );
+      }
+
+      return [...prev, { ...clickedItem, amount: 1 }];
+    })
+  };
+
+  const handleRemoveFromCart = (id: number) => {
+    setCartItems(prev => (
+    prev.reduce( (ack, item) => {
+      if (item.id === id) {
+        if (item.amount === 1) return ack;
+        return [...ack, { ...item, amount: item.amount - 1}]
+      } else {
+        return [...ack, item]
+      }
+    }, [] as CartItemType[])
+    ))
+  };
 
   const handleOpenCart = (): void => {
     setCartOpen(true);
@@ -54,7 +81,12 @@ const App = () => {
   if(isLoading) {
     return (
         <div className="App">
-          <Header handleOpenCart={handleOpenCart} handleCloseCart={handleCloseCart} />
+          <Header 
+            handleOpenCart={handleOpenCart} 
+            handleCloseCart={handleCloseCart} 
+            getTotalItems={getTotalItems}
+            cartItems={cartItems}
+          />
           <Dimmer active>
             <Loader size="massive">Loading</Loader>
           </Dimmer>
@@ -93,14 +125,23 @@ const App = () => {
             Shopping Cart
           </h2>
           <hr />
-          cart goes here
+          <Cart 
+            cartItems={cartItems} 
+            addToCart={handleAddToCart}
+            removeFromCart={handleRemoveFromCart}  
+          />
           <button onClick={handleCloseCart} >Hide</button>
         </Sidebar>
         
 
         
         <Sidebar.Pusher dimmed={cartOpen} >
-          <Header handleOpenCart={handleOpenCart} handleCloseCart={handleCloseCart}  />
+          <Header 
+            handleOpenCart={handleOpenCart} 
+            handleCloseCart={handleCloseCart} 
+            cartItems={cartItems}
+            getTotalItems={getTotalItems} 
+          />
 
           <div className="items-container">
           {data?.map( item => (

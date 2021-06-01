@@ -1,0 +1,11 @@
+.Cart {
+    align-content:center;
+    padding: 5px;
+    margin-bottom: 50px;;
+    
+}
+
+.Cart h2 {
+    padding-bottom: 10px;
+    border-bottom: 2px solid rgb(5, 60, 78);
+}

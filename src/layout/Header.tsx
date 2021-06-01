@@ -1,11 +1,14 @@
+import { CartItemType } from '../App'
 import './Header.css'
 
 interface Props {
     handleOpenCart: () => void;
     handleCloseCart: () => void;
+    getTotalItems: (cartItems: CartItemType[]) => number;
+    cartItems: CartItemType[];
 }
 
-export const Header: React.FC<Props> = (props) => {
+export const Header: React.FC<Props> = ({ handleOpenCart, handleCloseCart, getTotalItems, cartItems }) => {
     return (
         <div className="header">
             <ul className="nav">
@@ -19,7 +22,15 @@ export const Header: React.FC<Props> = (props) => {
                     <button>login</button>
                 </li>
                 <li>
-                    <button onClick={() => props.handleOpenCart()} >Cart</button>
+                    <button 
+                        onClick={() => handleOpenCart()} 
+                    >
+                        Cart {getTotalItems(cartItems) > 0 
+                            ? 
+                            <p>({getTotalItems(cartItems)})</p>
+                            : null} 
+
+                    </button>
                 </li>
             </ul>
         </div>
