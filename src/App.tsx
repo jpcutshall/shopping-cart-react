@@ -5,7 +5,7 @@ import { Item } from './Item/Item'
 import { Header } from './layout/Header'
 
 import './App.css';
-import { Dimmer, Loader } from 'semantic-ui-react'
+import { Dimmer, Loader, Sidebar, Segment } from 'semantic-ui-react'
 
 
 //types
@@ -20,10 +20,15 @@ export type CartItemType = {
 }
 
 const getProducts = async (): Promise<CartItemType[]> => {
-  return await (await fetch('https://fakestoreapi.com/products')).json();
+  const products = await fetch('https://fakestoreapi.com/products').then((res) => res.json())
+  return products
 }
 
 const App = () => {
+  const [ cartOpen, setCartOpen ] = useState(false)
+  const [ cartItems, setCartItems ] = useState([] as CartItemType[])
+
+
   const { data, isLoading, error } = useQuery<CartItemType[]>(
     'products', 
     getProducts
@@ -36,10 +41,18 @@ const App = () => {
 
   const handleRemoveFromCart = (clickedItem: CartItemType) => null;
 
+  const handleOpenCart = (): void => {
+    setCartOpen(true);
+  }
+
+  const handleCloseCart = (): void => {
+    setCartOpen(false);
+  }
+
   if(isLoading) {
     return (
-        <div>
-          <Header />
+        <div className="App">
+          <Header handleOpenCart={handleOpenCart} handleCloseCart={handleCloseCart} />
           <Dimmer active>
             <Loader size="massive">Loading</Loader>
           </Dimmer>
@@ -49,24 +62,53 @@ const App = () => {
 
   if(error) {
     return (
-      <div>
+      <div className="App">
         Something went wrong...
       </div>
     )
   }
+
+  
   
 
   return (
     
     <div className="App">
-      <Header />
-      <div className="items-container">
-        {data?.map( item => (
-          <div key={item.id} className='grid-item'>
-            <Item item={item} handleAddToCart={handleAddToCart} />
+      
+      <Sidebar.Pushable as={Segment}>
+
+        <Sidebar
+          
+          animation='overlay'
+          direction='right'
+          inverted='true'
+          onHide={handleCloseCart}
+          vertical='true'
+          visible={cartOpen}
+        >
+          <h2>
+            Shopping Cart
+          </h2>
+          <button onClick={handleCloseCart} >Hide</button>
+        </Sidebar>
+        
+
+        
+        <Sidebar.Pusher>
+          <Header handleOpenCart={handleOpenCart} handleCloseCart={handleCloseCart}  />
+
+          <div className="items-container">
+          {data?.map( item => (
+            <div key={item.id} className='grid-item'>
+              <Item item={item} handleAddToCart={handleAddToCart} />
+            </div>
+          ))}
           </div>
-        ))}
-      </div>
+
+
+        </Sidebar.Pusher>
+
+      </Sidebar.Pushable>
       
     </div>
   );
