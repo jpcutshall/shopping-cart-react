@@ -35,7 +35,9 @@ const App = () => {
   )
   console.log(data)
 
-  const getTotalItems = () => null;
+  const getTotalItems = (items: CartItemType[]) => 
+    items.reduce( (ack: number, item) => ack + item.amount, 0);
+   
 
   const handleAddToCart = (clickedItem: CartItemType) => null;
 
@@ -78,23 +80,26 @@ const App = () => {
       <Sidebar.Pushable as={Segment}>
 
         <Sidebar
-          
-          animation='overlay'
+          className="sidebar"
+          animation='push'
           direction='right'
           inverted='true'
           onHide={handleCloseCart}
           vertical='true'
           visible={cartOpen}
+          width="very wide"
         >
           <h2>
             Shopping Cart
           </h2>
+          <hr />
+          cart goes here
           <button onClick={handleCloseCart} >Hide</button>
         </Sidebar>
         
 
         
-        <Sidebar.Pusher>
+        <Sidebar.Pusher dimmed={cartOpen} >
           <Header handleOpenCart={handleOpenCart} handleCloseCart={handleCloseCart}  />
 
           <div className="items-container">
