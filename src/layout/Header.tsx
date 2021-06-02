@@ -6,20 +6,18 @@ interface Props {
     handleCloseCart: () => void;
     getTotalItems: (cartItems: CartItemType[]) => number;
     cartItems: CartItemType[];
+    handleAboutOpen: () => void;
 }
 
-export const Header: React.FC<Props> = ({ handleOpenCart, handleCloseCart, getTotalItems, cartItems }) => {
+export const Header: React.FC<Props> = ({ handleOpenCart, handleCloseCart, getTotalItems, cartItems, handleAboutOpen }) => {
     return (
         <div className="header">
             <ul className="nav">
                 <li>
-                    <button>Home</button>
+                    <button onClick={() => handleAboutOpen()} >Home</button>
                 </li>
                 <li>
-                    <button>About</button>
-                </li>
-                <li>
-                    <button>login</button>
+                    <button onClick={() => handleAboutOpen()} >About</button>
                 </li>
                 <li>
                     <button 

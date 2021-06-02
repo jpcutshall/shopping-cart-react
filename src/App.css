@@ -49,3 +49,12 @@ hr:after {
     position: relative;
     top: -13px;
 }
+
+.about-page {
+    display: flex;
+    margin: auto;
+    flex-direction: column;
+    max-width: 500px;
+    align-content: center;
+    justify-content: center;
+}

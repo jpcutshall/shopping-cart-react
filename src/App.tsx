@@ -28,6 +28,7 @@ const getProducts = async (): Promise<CartItemType[]> => {
 const App = () => {
   const [ cartOpen, setCartOpen ] = useState(false)
   const [ cartItems, setCartItems ] = useState([] as CartItemType[])
+  const [ aboutOpen, setAboutOpen ] = useState(false)
 
 
   const { data, isLoading, error } = useQuery<CartItemType[]>(
@@ -56,6 +57,10 @@ const App = () => {
       return [...prev, { ...clickedItem, amount: 1 }];
     })
   };
+
+  const handleAboutOpen = (): void => {
+    setAboutOpen(!aboutOpen)
+  }
 
   const handleRemoveFromCart = (id: number) => {
     setCartItems(prev => (
@@ -86,10 +91,40 @@ const App = () => {
             handleCloseCart={handleCloseCart} 
             getTotalItems={getTotalItems}
             cartItems={cartItems}
+            handleAboutOpen={handleAboutOpen}
           />
           <Dimmer active>
             <Loader size="massive">Loading</Loader>
           </Dimmer>
+        </div>
+    )
+  }
+
+  if(aboutOpen) {
+    return (
+        <div className="App">
+          <Header 
+            handleOpenCart={handleOpenCart} 
+            handleCloseCart={handleCloseCart} 
+            getTotalItems={getTotalItems}
+            cartItems={cartItems}
+            handleAboutOpen={handleAboutOpen}
+            
+          />
+          <div className="about-page">
+            <h3>
+              Hello! This is my first React App created with Typescript!
+              It taught me a lot about TS and how much easier it makes coding with fewer errors.
+              I used the fake store api to fill the data for this project!
+            </h3>
+            <hr />
+            <button onClick={ (e) => {
+              e.preventDefault()
+              window.location.href='https://www.buymeacoffee.com/jpcutshall'
+            }} >
+              Buy me a beer! 🍺
+            </button>
+          </div>
         </div>
     )
   }
@@ -101,9 +136,6 @@ const App = () => {
       </div>
     )
   }
-
-  
-  
 
   return (
     
@@ -129,6 +161,7 @@ const App = () => {
             cartItems={cartItems} 
             addToCart={handleAddToCart}
             removeFromCart={handleRemoveFromCart}  
+            handleAboutOpen={handleAboutOpen}
           />
           <button onClick={handleCloseCart} >Hide</button>
         </Sidebar>
@@ -141,6 +174,7 @@ const App = () => {
             handleCloseCart={handleCloseCart} 
             cartItems={cartItems}
             getTotalItems={getTotalItems} 
+            handleAboutOpen={handleAboutOpen}
           />
 
           <div className="items-container">

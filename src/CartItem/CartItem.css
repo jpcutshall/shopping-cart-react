@@ -17,17 +17,17 @@
 
 
 .buttons, .information {
-    position: relative;
+    
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     max-width: 50%;
-    top: 100px;
+     
     
 }
 
 .buttons button {
     padding: 5px;
-    margin: 0 0 0 15px;
+    margin: 7px;
     box-shadow: 1px 1px 1px 2px #FCF5C7;
 }
